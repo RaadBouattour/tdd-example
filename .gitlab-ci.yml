@@ -1,0 +1,25 @@
+stages:
+  - build
+  - test
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+build:
+  stage: build
+  image: maven:3.8.5-openjdk-17
+  script:
+    - mvn compile
+  artifacts:
+    paths:
+      - target/
+
+test:
+  stage: test
+  image: maven:3.8.5-openjdk-17
+  script:
+    - mvn test
+  artifacts:
+    paths:
+      - target/surefire-reports/
+    when: always
